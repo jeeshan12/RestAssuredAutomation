@@ -1,0 +1,33 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="RestAssuredAutomationSuite" verbose="1" parallel="none">
+
+    <listeners>
+        <listener class-name="com.framework.listeners.SerialAnnotationTransformer"/>
+        <listener class-name="com.framework.listeners.SuiteLifecycleListener"/>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+    </listeners>
+
+    <test name="Serial-Execution" parallel="none" thread-count="1">
+        <groups>
+            <run>
+                <include name="serial"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="com.framework.tests.*"/>
+        </packages>
+    </test>
+
+    <test name="Parallel-Execution" parallel="methods" thread-count="${parallel.threads}">
+        <groups>
+            <run>
+                <exclude name="serial"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="com.framework.tests.*"/>
+        </packages>
+    </test>
+
+</suite>
